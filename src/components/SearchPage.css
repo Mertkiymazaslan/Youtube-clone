@@ -22,3 +22,9 @@
     margin-top: 10px;
     margin-bottom: 10px;
 }
+
+@media only screen and (max-width: 900px) {
+    .searchPage{
+        flex: 1;
+    }
+}

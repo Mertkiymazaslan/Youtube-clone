@@ -1,17 +1,40 @@
-import React from 'react'
-import "./SearchPage.css"
-import TuneIcon from '@material-ui/icons/Tune';
-import ChannelRow from './ChannelRow';
-import VideoRow from './VideoRow';
+import React, { useState, useEffect } from "react";
+import "./SearchPage.css";
+import TuneIcon from "@material-ui/icons/Tune";
+import ChannelRow from "./ChannelRow";
+import VideoRow from "./VideoRow";
+import { useParams } from "react-router-dom";
+import Youtube from "../api/Youtube";
+
 
 const SearchPage = () => {
+  const { searchTerm } = useParams();
+  const [videos, setVideos] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
+  useEffect(() => {
+    const getVideos = async () => {
+      const response = await Youtube.get("search", {
+        params: { q: searchTerm, maxResults: 10 },
+      });
+      setVideos(response.data.items);
+      setIsLoading(false);
+    };
+    getVideos();
+  }, [searchTerm]);
+
+  const decodeString = (Str) => {
+    const textArea = document.createElement("textarea");
+    textArea.innerHTML = Str;
+    return textArea.value;
+  };
+
   return (
-    <div className='searchPage'>
-        <div className='searchPage__filter'>
-            <TuneIcon />
-            <h2>FILTER</h2>
-        </div>
-        <hr />
+    <div className="searchPage">
+      <div className="searchPage__filter">
+        <TuneIcon />
+        <h2>FILTER</h2>
+      </div>
+      {/* <hr />
 
         <ChannelRow 
             image="https://i.pinimg.com/736x/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1--flat-icons-free-icon.jpg"
@@ -20,65 +43,16 @@ const SearchPage = () => {
             subs="867K"
             noOfVideos={325}
             description="loremf msadfsdf wer ywywe fe ww we rtrthrth rt wwgwgrwgdkfms sdkmfmkewpf wekmf  kmwefwe"
-        />
-        <hr />
+        /> */}
+      <hr />
 
-        <VideoRow 
-            views="1.4M"
-            subs="659K"
-            description="This is description This is description"
-            timestamp="2 minutes ago"
-            channel="Clever Programmer"
-            title="Lets Build a YouTube clone"
-            image="https://randomwordgenerator.com/img/picture-generator/53e8d2434f5bb10ff3d8992cc12c30771037dbf85254784c772d7ddc9e44_640.jpg"
-        />
-        <VideoRow 
-            views="1.4M"
-            subs="659K"
-            description="This is description This is description"
-            timestamp="2 minutes ago"
-            channel="Clever Programmer"
-            title="Lets Build a YouTube clone"
-            image="https://randomwordgenerator.com/img/picture-generator/53e8d2434f5bb10ff3d8992cc12c30771037dbf85254784c772d7ddc9e44_640.jpg"
-        />
-        <VideoRow 
-            views="1.4M"
-            subs="659K"
-            description="This is description This is description"
-            timestamp="2 minutes ago"
-            channel="Clever Programmer"
-            title="Lets Build a YouTube clone"
-            image="https://randomwordgenerator.com/img/picture-generator/53e8d2434f5bb10ff3d8992cc12c30771037dbf85254784c772d7ddc9e44_640.jpg"
-        />
-        <VideoRow 
-            views="1.4M"
-            subs="659K"
-            description="This is description This is description"
-            timestamp="2 minutes ago"
-            channel="Clever Programmer"
-            title="Lets Build a YouTube clone"
-            image="https://randomwordgenerator.com/img/picture-generator/53e8d2434f5bb10ff3d8992cc12c30771037dbf85254784c772d7ddc9e44_640.jpg"
-        />
-        <VideoRow 
-            views="1.4M"
-            subs="659K"
-            description="This is description This is description"
-            timestamp="2 minutes ago"
-            channel="Clever Programmer"
-            title="Lets Build a YouTube clone"
-            image="https://randomwordgenerator.com/img/picture-generator/53e8d2434f5bb10ff3d8992cc12c30771037dbf85254784c772d7ddc9e44_640.jpg"
-        />
-        <VideoRow 
-            views="1.4M"
-            subs="659K"
-            description="This is description This is description"
-            timestamp="2 minutes ago"
-            channel="Clever Programmer"
-            title="Lets Build a YouTube clone"
-            image="https://randomwordgenerator.com/img/picture-generator/53e8d2434f5bb10ff3d8992cc12c30771037dbf85254784c772d7ddc9e44_640.jpg"
-        />
+      {videos.map((video) => {
+        return (
+          <VideoRow key={video.id.videoId} videoId={video.id.videoId} channelId={video.snippet.channelId} />
+        );
+      })}
     </div>
-  )
-}
+  );
+};
 
-export default SearchPage
+export default SearchPage;
