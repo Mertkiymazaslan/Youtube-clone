@@ -6,7 +6,6 @@ import VideoRow from "./VideoRow";
 import { useParams } from "react-router-dom";
 import Youtube from "../api/Youtube";
 
-
 const SearchPage = () => {
   const { searchTerm } = useParams();
   const [videos, setVideos] = useState([]);
@@ -21,12 +20,6 @@ const SearchPage = () => {
     };
     getVideos();
   }, [searchTerm]);
-
-  const decodeString = (Str) => {
-    const textArea = document.createElement("textarea");
-    textArea.innerHTML = Str;
-    return textArea.value;
-  };
 
   return (
     <div className="searchPage">
@@ -45,12 +38,17 @@ const SearchPage = () => {
             description="loremf msadfsdf wer ywywe fe ww we rtrthrth rt wwgwgrwgdkfms sdkmfmkewpf wekmf  kmwefwe"
         /> */}
       <hr />
-
-      {videos.map((video) => {
-        return (
-          <VideoRow key={video.id.videoId} videoId={video.id.videoId} channelId={video.snippet.channelId} />
-        );
-      })}
+      {isLoading && <h2>Loading...</h2>}
+      {!isLoading &&
+        videos.map((video) => {
+          return (
+            <VideoRow
+              key={video.id.videoId}
+              videoId={video.id.videoId}
+              channelId={video.snippet.channelId}
+            />
+          );
+        })}
     </div>
   );
 };

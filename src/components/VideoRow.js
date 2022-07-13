@@ -5,31 +5,37 @@ import { useNavigate } from "react-router-dom";
 import Youtube from "../api/Youtube";
 import Avatar from "@material-ui/core/Avatar";
 import moment from "moment";
+import { useVideo } from "../contexts/VideoContext";
 
 const VideoRow = ({ videoId, channelId }) => {
   const [videoDetails, setVideoDetails] = useState(null);
   const [channelDetails, setChannelDetails] = useState(null);
+  const navigate = useNavigate();
+  const {setCurrentVideo, setCurrentChannel} = useVideo();
+
   useEffect(() => {
     const getVideoDetails = async () => {
       const response = await Youtube.get("videos", {
         params: { part: "snippet,statistics", id: videoId },
       });
       setVideoDetails(response.data.items[0]);
-      //loading state ekleyebilirsin.
     };
+
     const getChannelDetails = async () => {
       const response = await Youtube.get("channels", {
         params: { part: "snippet,statistics", id: channelId },
       });
       setChannelDetails(response.data.items[0]);
-      //loading state ekleyebilirsin.
     };
-    
+
     getVideoDetails();
+    getChannelDetails();
   }, []);
 
   const onVideoSelect = () => {
-    // console.log(id);
+    setCurrentVideo(videoDetails);
+    setCurrentChannel(channelDetails);
+    navigate("/video")
   };
 
   return (
@@ -37,7 +43,7 @@ const VideoRow = ({ videoId, channelId }) => {
       style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
       onClick={() => onVideoSelect()}
     >
-      {videoDetails && (
+      {videoDetails && channelDetails && (
         <div className="videoRow">
           <img src={videoDetails.snippet.thumbnails.medium.url} alt="" />
           <div className="videoRow__text">
@@ -46,12 +52,22 @@ const VideoRow = ({ videoId, channelId }) => {
               {videoDetails.statistics.viewCount} views -{" "}
               {moment(new Date(videoDetails.snippet.publishedAt)).fromNow()}
             </p>
-            <p className="videoRow__headline">
-              <Avatar className="videoCard__avatar" alt="" src={channelDetails.snippet.thumbnails.medium} />
-              {channelDetails.snippet.title}
-            </p>
+
+            <div className="videoRow__channel">
+              <Avatar
+                className="videoCard__avatar"
+                alt=""
+                src={channelDetails.snippet.thumbnails.medium.url}
+              />
+              <p className="videoRow__channelInfo">
+                {channelDetails.snippet.title} - {channelDetails.statistics.subscriberCount} Subscribers
+              </p>
+            </div>
             <p className="videoRow__description">
-              {videoDetails.snippet.description.split(' ').slice(0, 20).join(' ') + "..."}
+              {videoDetails.snippet.description
+                .split(" ")
+                .slice(0, 20)
+                .join(" ") + "..."}
             </p>
           </div>
         </div>

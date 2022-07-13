@@ -17,8 +17,20 @@
 
 .videoRow__headline{
     font-size: 13px;
-    margin-top: 5px;
     color: #606060;
+    margin-top: 5px;
+}
+
+.videoRow__channelInfo{
+    font-size: 13px;
+    color: #606060;
+    margin-left: 5px;
+}
+
+.videoRow__channel{
+    margin-top: 8px;
+    display: flex;
+    align-items: center;
 }
 
 .videoRow__description{

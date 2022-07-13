@@ -40,9 +40,8 @@ const ReccomendedVideos = () => {
                 key={video.id.videoId}
                 title={title}
                 timestamp={dateStr}
-                channelImage="https://i.pinimg.com/736x/7c/c7/a6/7cc7a630624d20f7797cb4c8e93c09c1--flat-icons-free-icon.jpg"
-                channel={video.snippet.channelTitle}
                 image={video.snippet.thumbnails.medium.url}
+                channelId={video.snippet.channelId}
               />)
         })}
         </div>

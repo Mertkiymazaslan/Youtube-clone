@@ -6,6 +6,7 @@
 .videoCard__thumbnail{
     height: 140px;
     width: 250px;
+    object-fit: contain;
     margin-bottom: 12px;
 }
 .videoCard__info{

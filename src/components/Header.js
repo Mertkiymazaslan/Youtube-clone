@@ -13,6 +13,12 @@ const Header = () => {
   const [inputSearch, setInputSearch] = useState("");
   const navigate = useNavigate();
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if(inputSearch !== "")
+      navigate(`/search/${inputSearch}`)
+  };
+
   return (
     <div className="header">
       <div className="header__left">
@@ -27,10 +33,7 @@ const Header = () => {
       </div>
       <div className="header__input">
         <form
-          onSubmit={(e) => {
-            e.preventDefault();
-            navigate(`/search/${inputSearch}`);
-          }}
+          onSubmit={handleSubmit}
         >
           <input
             onChange={(e) => setInputSearch(e.target.value)}
