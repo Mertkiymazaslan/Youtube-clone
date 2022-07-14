@@ -1,6 +1,7 @@
 .videoCard{
     margin-bottom: 40px;
     width: 250px;
+    height: 250px;
 }
 
 .videoCard__thumbnail{
@@ -31,4 +32,8 @@
 .videoCard__avatar{
     height: 35px !important;
     width: 35px !important;
+}
+
+.videoCard__channelName{
+    margin-bottom: 5px;
 }

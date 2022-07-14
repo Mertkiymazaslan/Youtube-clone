@@ -38,9 +38,7 @@ const ReccomendedVideos = () => {
             const dateStr = moment(date).fromNow();
             return(<VideoCard
                 key={video.id.videoId}
-                title={title}
-                timestamp={dateStr}
-                image={video.snippet.thumbnails.medium.url}
+                videoId={video.id.videoId}
                 channelId={video.snippet.channelId}
               />)
         })}

@@ -10,8 +10,8 @@ import { useVideo } from "../contexts/VideoContext";
 const VideoRow = ({ videoId, channelId }) => {
   const [videoDetails, setVideoDetails] = useState(null);
   const [channelDetails, setChannelDetails] = useState(null);
-  const navigate = useNavigate();
   const {setCurrentVideo, setCurrentChannel} = useVideo();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getVideoDetails = async () => {
@@ -32,7 +32,7 @@ const VideoRow = ({ videoId, channelId }) => {
     getChannelDetails();
   }, []);
 
-  const onVideoSelect = () => {
+  const onVideoRowSelect = () => {
     setCurrentVideo(videoDetails);
     setCurrentChannel(channelDetails);
     navigate("/video")
@@ -41,7 +41,7 @@ const VideoRow = ({ videoId, channelId }) => {
   return (
     <Paper
       style={{ display: "flex", alignItems: "center", cursor: "pointer" }}
-      onClick={() => onVideoSelect()}
+      onClick={() => onVideoRowSelect()}
     >
       {videoDetails && channelDetails && (
         <div className="videoRow">
