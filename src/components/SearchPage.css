@@ -4,6 +4,11 @@
     padding: 20px 20px;
 }
 
+.flexOne{
+    flex:1;
+    margin: auto;
+}
+
 .searchPage__filter{
     display: flex;
     align-items: center;

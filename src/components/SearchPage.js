@@ -4,11 +4,14 @@ import TuneIcon from "@material-ui/icons/Tune";
 import VideoRow from "./VideoRow";
 import { useParams } from "react-router-dom";
 import Youtube from "../api/Youtube";
+import { useVideo } from "../contexts/VideoContext";
 
 const SearchPage = () => {
   const { searchTerm } = useParams();
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const {sideBarShow} = useVideo();
+
   useEffect(() => {
     const getVideos = async () => {
       const response = await Youtube.get("search", {
@@ -21,7 +24,7 @@ const SearchPage = () => {
   }, [searchTerm]);
 
   return (
-    <div className="searchPage">
+    <div className={"searchPage " + (sideBarShow ? "" : "flexOne")}>
       <div className="searchPage__filter">
         <TuneIcon />
         <h2>FILTER</h2>

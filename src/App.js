@@ -6,8 +6,11 @@ import "./App.css";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import VideoPlayer from "./components/VideoPlayer";
 import SideVideoList from "./components/SideVideoList";
+import { useState } from "react";
+import { useVideo } from "./contexts/VideoContext";
 
 function App() {
+  const { sideBarShow } = useVideo();
 
   return (
     <div className="app">
@@ -19,7 +22,7 @@ function App() {
             path="/"
             element={
               <div className="app__page">
-                <Sidebar />
+                {sideBarShow && <Sidebar />}
                 <ReccomendedVideos />
               </div>
             }
@@ -29,7 +32,7 @@ function App() {
             path="/video"
             element={
               <div className="app__page">
-                <Sidebar />
+                {sideBarShow && <Sidebar />}
                 <VideoPlayer />
                 <SideVideoList />
               </div>
@@ -40,7 +43,7 @@ function App() {
             path="/search/:searchTerm"
             element={
               <div className="app__page">
-                <Sidebar />
+                {sideBarShow && <Sidebar />}
                 <SearchPage />
               </div>
             }

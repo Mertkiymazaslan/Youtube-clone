@@ -10,8 +10,10 @@ import OndemandVideoIcon from '@material-ui/icons/OndemandVideo';
 import WatchLaterIcon from '@material-ui/icons/WatchLater';
 import ThumbUpIcon from '@material-ui/icons/ThumbUp';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
+import { useVideo } from "../contexts/VideoContext";
 
 const Sidebar = () => {
+
   return (
     <div className="sidebar">
       <SidebarRow selected Icon={HomeIcon} title="Home" />

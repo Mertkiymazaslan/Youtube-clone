@@ -48,3 +48,13 @@
 .header__icon{
     margin-right: 10px;
 }
+
+.header__sideBarButton{
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition-delay: 1s ease;
+}
+.header__sideBarButton:active{
+    background-color: lightgray;
+}

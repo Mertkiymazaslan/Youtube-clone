@@ -3,10 +3,12 @@ import "./RecommendedVideos.css";
 import VideoCard from "./VideoCard";
 import Youtube from "../api/Youtube";
 import moment from 'moment'
+import { useVideo } from "../contexts/VideoContext";
 
 const ReccomendedVideos = () => {
   const [videos, setVideos] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
+  const {sideBarShow} = useVideo();
 
   const decodeString = (Str) => {
     const textArea = document.createElement("textarea");
@@ -27,7 +29,7 @@ const ReccomendedVideos = () => {
   }, []);
 
   return (
-    <div className="recommendedVideos">
+    <div className={"recommendedVideos" + (sideBarShow ? "" : " flexOne")}>
       <h2>Reccomended</h2>
       {isLoading && <h2>Loading...</h2>}
       {!isLoading && (

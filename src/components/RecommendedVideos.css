@@ -5,6 +5,10 @@
     padding-bottom: 0;
 }
 
+.flexOne{
+    flex:1;
+}
+
 .recommendedVideos > h2{
     margin-left: 5px;
     margin-bottom: 20px;
@@ -13,6 +17,11 @@
 .recommendedVideos__videos{
     display: flex;
     flex-wrap: wrap;
-
     gap: 20px;
+}
+
+@media only screen and (max-width: 900px) {
+    .recommendedVideos{
+        flex: 1;
+    }
 }

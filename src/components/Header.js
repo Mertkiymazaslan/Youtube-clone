@@ -8,10 +8,12 @@ import NotificationsIcon from "@material-ui/icons/Notifications";
 import Avatar from "@material-ui/core/Avatar";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useVideo } from "../contexts/VideoContext";
 
 const Header = () => {
   const [inputSearch, setInputSearch] = useState("");
   const navigate = useNavigate();
+  const {setSideBarShow} = useVideo();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,7 +24,9 @@ const Header = () => {
   return (
     <div className="header">
       <div className="header__left">
-        <MenuIcon />
+        <button className="header__sideBarButton" onClick={() => setSideBarShow(prev => !prev)}>
+          <MenuIcon />
+        </button>
         <Link to="/">
           <img
             className="header__logo"

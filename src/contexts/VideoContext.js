@@ -9,14 +9,17 @@ export function useVideo() {
 export const VideoProvider = ({ children }) => {
     const [currentVideo, setCurrentVideo] = useState(null);
     const [currentChannel, setCurrentChannel] = useState(null);
+    const [sideBarShow, setSideBarShow] = useState(true);
   
     return (
       <VideoContext.Provider
         value={{
           currentVideo,
           currentChannel,
+          sideBarShow,
           setCurrentVideo,
-          setCurrentChannel
+          setCurrentChannel,
+          setSideBarShow
         }}
       >
         {children}
